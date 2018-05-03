@@ -3,7 +3,7 @@
     <div>
       <app-logo/>
       <h1 class="title">
-        dt-nuxt
+        dt-nuxt —— {{title}}
       </h1>
       <h2 class="subtitle" @click='test'>
         this is the first testing to build a nuxt program
@@ -24,6 +24,7 @@
 
 <script>
 import AppLogo from '~/components/AppLogo.vue'
+import { mapState,mapActions } from 'vuex'
 
 export default {
   layout: 'blog',
@@ -35,6 +36,19 @@ export default {
       title:"这是测试页面"
     }
   },
+  // asyncData ({ params }) {
+  //   return axios.get("https://tm.kbao123.com/4.3/product/lablelist")
+  //   .then((res) => {
+  //      console.log('这是接口返回的数据呀：',res.data)
+  //   })
+  // },
+  async asyncData ({ params }) {
+    // httpa.postRequest("https://tm.kbao123.com/4.3/product/lablelist",{},function(){
+    //   console.log('77777777777---------------:::')
+    // })
+    // console.log('-------------------:',HttpRequest)
+    return { title: '123123' }
+  },
   notifications: {
     showLoginError: { // You can have any name you want instead of 'showLoginError'
       title: 'Login Failed',
@@ -44,8 +58,18 @@ export default {
   },
   methods:{
     test:function(){
-      this.showLoginError()
+      // this.showLoginError()
+      alert(this.tt)
     }
+  },
+  created () {
+    this.$store.dispatch('init')
+    this.$store.dispatch('getInit')
+  },
+  computed:{
+    ...mapState({
+        tt: 'tt'
+    }),
   }
 }
 </script>
