@@ -3,13 +3,13 @@
     <div>
       <app-logo/>
       <h1 class="title">
-        dt-nuxt 这是我得测试页面 —— {{data.isNew}}
+        dt-nuxt 这是我得测试页面 —— 
       </h1>
       <h2 class="subtitle" @click='test'>
-        你好吗，你好吗
+        你好吗，你好吗123
       </h2>
-      <p>{{data.isNew}}</p>
-      <p v-for='item in data' :key='item.code'>
+      <p></p>
+      <p v-for='item in data.body' :key='item.code'>
         {{item.name}}
       </p>
     </div>
@@ -21,9 +21,14 @@ import AppLogo from '~/components/AppLogo.vue'
 import axios from '~/server/index.js'
 
 export default {
+  name:'test',
   layout: 'blog',
   components: {
     AppLogo
+  },
+  serverCacheKey () {
+    // Will change every 10 secondes
+    return Math.floor(Date.now() / 10000)
   },
   data(){
     return { name: 'default' }
@@ -34,17 +39,14 @@ export default {
     }
   },
   async asyncData ({ params }) {
-
-    let {data}  = await axios.post(axios.apiData.getProductScreenSelect,{})
-    console.log('111==',data)
-    return {data: data.body}
+    return {data: await axios.reqPost(axios.apiData.getProductScreenSelect,{})}
   },
   methods:{
     test(){
       axios.post(axios.apiData.test,{userId:"6b8614c115a7474f9bf617df1319eca1"}).then((res) => {
-        console.log('1222=',res)
+        // console.log('1222=',res)
       }).catch((e) => {
-        console.log('3442=',e)
+        // console.log('3442=',e)
       })
     }
   },

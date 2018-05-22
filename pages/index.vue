@@ -60,6 +60,7 @@ export default {
     test:function(){
       // this.showLoginError()
       alert(this.tt)
+      console.log(this.host)
     }
   },
   created () {
@@ -68,7 +69,8 @@ export default {
   },
   computed:{
     ...mapState({
-        tt: 'tt'
+        tt: 'tt',
+        host: 'stateInit'
     }),
   }
 }

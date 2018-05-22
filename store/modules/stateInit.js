@@ -4,7 +4,7 @@
 * Description: to make the program get the init state
 */
 const state = {
-  	host: '',
+  	host: '123456',
     headerTitle: ' ',
     isAppOpen: true,		//是否app打开
     appOs: "",			//判断手机是系统，安卓，ios
@@ -14,13 +14,13 @@ const state = {
 }
 
 const getters = {
-  host: state => state.all
+  // host: state => state.all
 }
 
 const actions = {
 	init({state,commit,getters},context){
-		console.log(123123123)
-		console.log(context)
+    console.log("这是模块内的数据")
+    console.log('不知奥',state.host)
 		// // 判断当前是否是app打开的页面
 		// let userAgent = navigator.userAgent;
 		// let isAppOpen = userAgent.indexOf("kuaibao") !== -1 ? true : false;

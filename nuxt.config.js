@@ -27,16 +27,16 @@ module.exports = {
     /*
     ** Run ESLint on save
     */
-    // extend (config, { isDev, isClient }) {
-    //   if (isDev && isClient) {
-    //     config.module.rules.push({
-    //       enforce: 'pre',
-    //       test: /\.(js|vue)$/,
-    //       loader: 'eslint-loader',
-    //       exclude: /(node_modules)/
-    //     })
-    //   }
-    // },
+    extend (config, { isDev, isClient }) {
+      if (isDev && isClient) {
+        config.module.rules.push({
+          enforce: 'pre',
+          test: /\.(js|vue)$/,
+          loader: 'eslint-loader',
+          exclude: /(node_modules)/
+        })
+      }
+    },
     vendor: ['axios','~/plugins/vue-notifications'],  //  无论引用多少次，都只打包一次，公共模块
     loaders: [
       {
@@ -61,6 +61,14 @@ module.exports = {
   },
 
   plugins: ['~/plugins/vue-notifications'],
+  render: {
+    bundleRenderer: {
+      cache: require('lru-cache')({
+        max: 1000,
+        maxAge: 1000 * 60 * 15
+      })
+    }
+  }
   // modules: [
   //   // 请求代理配置，解决跨域
   //   '@gauseen/nuxt-proxy',
